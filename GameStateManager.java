@@ -25,7 +25,8 @@ public class GameStateManager {
     }
 
     private void changeCurrentState(states state) {
-        _currentState.stopState();
+        //_currentState.stopState();
+        stopState();
 
         switch (state) {
             case menu :
@@ -37,6 +38,9 @@ public class GameStateManager {
 
     private void startState(GameStatePanel gs) {
         Game.addToFrame(gs);
+    }
+    private void stopState() {
+        Game.clearFrame();
     }
 
 }
