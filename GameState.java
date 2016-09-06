@@ -1,6 +1,9 @@
+
+
 import javax.swing.*;
 
-abstract class GameState extends JPanel {
+@SuppressWarnings("serial")
+abstract class GameStatePanel extends JPanel {
 
     public void stopState() {
         Game.clearFrame();

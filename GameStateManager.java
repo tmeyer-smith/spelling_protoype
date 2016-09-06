@@ -1,43 +1,51 @@
+
+
 import java.util.ArrayList;
 
 public class GameStateManager {
 
-    public enum states {
+    public enum State {
         menu
+        
     }
 
-    private GameState _currentState;
-
+    private GameStatePanel _currentState;
     private static GameStateManager _gsm;
     private ArrayList<Integer> _states;
 
     private GameStateManager() {
-        //_currentState = new MenuState();
+        _currentState = new MenuState();
     }
+    
 
-    private static GameStateManager getGSM() {
-        if (_gsm==null) {
-            _gsm = new GameStateManager();
-        }
+    public static void initializeGSM() {
+    	if (_gsm==null) {
+    		_gsm = new GameStateManager();
+    		_gsm.startState(_gsm._currentState);
+    	}
+    }
+    
+    
+    public static GameStateManager getGSM() {
         return _gsm;
     }
 
-    public static void changeState(states state) {
+    public static void changeState(State state) {
         getGSM().changeCurrentState(state);
     }
 
-    private void changeCurrentState(states state) {
+    private void changeCurrentState(State state) {
         _currentState.stopState();
 
         switch (state) {
             case menu :
-                //_currentState = new MenuState();
+                _currentState = new MenuState();
         }
 
         startState(_currentState);
     }
 
-    private void startState(GameState gs) {
+    private void startState(GameStatePanel gs) {
         Game.addToFrame(gs);
     }
 
