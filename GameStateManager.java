@@ -6,10 +6,8 @@ public class GameStateManager {
         menu
     }
 
-    private GameState _currentState;
-
+    private GameStatePanel _currentState;
     private static GameStateManager _gsm;
-    private ArrayList<Integer> _states;
 
     private GameStateManager() {
         //_currentState = new MenuState();
@@ -37,7 +35,7 @@ public class GameStateManager {
         startState(_currentState);
     }
 
-    private void startState(GameState gs) {
+    private void startState(GameStatePanel gs) {
         Game.addToFrame(gs);
     }
 
