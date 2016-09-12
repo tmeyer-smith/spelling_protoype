@@ -1,7 +1,3 @@
-
-
-import javax.swing.JFrame;
-
 public class Game {
 
     private static SpellingFrame _frame;
@@ -13,14 +9,13 @@ public class Game {
     public static void main(String[] args) {
         setUpFrame();
         GameStateManager.initializeGSM();
-    }
-
-    public static void clearFrame() {
-        _frame.removeAll();
+        _frame.setVisible(true);
     }
 
     public static void addToFrame(GameStatePanel gs) {
     	_frame.setContentPane(gs);
+    	_frame.repaint();
+    	_frame.revalidate();
     }
 
 

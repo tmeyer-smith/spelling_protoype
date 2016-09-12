@@ -1,17 +1,16 @@
-
-
-import java.util.ArrayList;
-
 public class GameStateManager {
 
     public enum State {
-        menu
-        
+        menu,
+        statistics,
+        settings,
+        play,
+        pregame,
+        postgame
     }
 
     private GameStatePanel _currentState;
     private static GameStateManager _gsm;
-    private ArrayList<Integer> _states;
 
     private GameStateManager() {
         _currentState = new MenuState();
@@ -35,11 +34,28 @@ public class GameStateManager {
     }
 
     private void changeCurrentState(State state) {
-        _currentState.stopState();
 
         switch (state) {
-            case menu :
-                _currentState = new MenuState();
+        case menu :
+        	_currentState = new MenuState();
+        	break;
+        case settings :
+        	_currentState = new SettingsState();
+        	break;
+        case statistics :
+        	_currentState = new StatsState();
+        	break;
+        case play:
+        	_currentState = new PlayState();
+        	break;
+        case postgame:
+        	_currentState = new PostGameState();
+        	break;
+        case pregame:
+        	_currentState = new PreGameState();
+        	break;
+        default:
+        	break;
         }
 
         startState(_currentState);
@@ -48,5 +64,6 @@ public class GameStateManager {
     private void startState(GameStatePanel gs) {
         Game.addToFrame(gs);
     }
+
 
 }
