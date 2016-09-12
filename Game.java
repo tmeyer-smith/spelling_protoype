@@ -6,20 +6,16 @@ public class Game {
 
     public static void main(String[] args) {
         setUpFrame();
+        WordListsManager.initialise();
+        GameStateManager.initialiseGSM();
     }
 
     private static void setUpFrame() {
         _frame = new SpellingFrame();
     }
 
-    public static void clearFrame() {
-        _frame.removeAll();
-    }
-
     public static void addToFrame(GameStatePanel gs) {
-        _frame.add(gs);
+        _frame.setContentPane(gs);
     }
-
-
 
 }
