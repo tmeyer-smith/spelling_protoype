@@ -10,6 +10,8 @@ public class GameStateManager {
     }
 
     private GameStatePanel _currentState;
+	private String _voice;
+	private int _level;
     private static GameStateManager _gsm;
 
     private GameStateManager() {
@@ -29,7 +31,9 @@ public class GameStateManager {
         return _gsm;
     }
 
-    public static void changeState(State state) {
+
+
+	public static void changeState(State state) {
         getGSM().changeCurrentState(state);
     }
 
@@ -64,6 +68,30 @@ public class GameStateManager {
     private void startState(GameStatePanel gs) {
         Game.addToFrame(gs);
     }
+
+
+    
+    public String getVoice() {
+		return _voice;
+	}
+    
+	public static void changeVoice(String voice) {
+	// CHANGING OF VOICE WITHIN SYSTEM NEEDS TO BE IMPLEMENTED	
+		getGSM()._voice = voice;
+	}
+
+    
+	public int getLevel() {
+		return _level;
+	}
+
+
+	public void setLevel(int _level) {
+		this._level = _level;
+	}
+
+
+
 
 
 }

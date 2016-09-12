@@ -1,3 +1,4 @@
+@SuppressWarnings("serial")
 public class PreGameState extends GameStatePanel {
 
 	/**
