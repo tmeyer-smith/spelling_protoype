@@ -1,5 +1,4 @@
 
-@SuppressWarnings("serial")
 public class SettingsButton extends ChangeStateButton {
 
     public SettingsButton() {

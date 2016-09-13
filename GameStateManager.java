@@ -1,65 +1,40 @@
+
 public class GameStateManager {
 
     public enum State {
-        menu,
-        statistics,
-        settings,
-        play,
-        pregame,
-        postgame
+        menu,statistics,settings,play,pregame,postgame
     }
 
     private GameStatePanel _currentState;
-	private String _voice;
-	private int _level;
     private static GameStateManager _gsm;
 
     private GameStateManager() {
-        _currentState = new MenuState();
+        //_currentState = new MenuState();
     }
-    
 
-    public static void initializeGSM() {
-    	if (_gsm==null) {
-    		_gsm = new GameStateManager();
-    		_gsm.startState(_gsm._currentState);
-    	}
-    }
-    
-    
     public static GameStateManager getGSM() {
         return _gsm;
     }
 
+    public static void initialiseGSM() {
+        if (_gsm==null) {
+            _gsm = new GameStateManager();
+            _gsm.startState(_gsm._currentState);
+        }
+    }
 
-
-	public static void changeState(State state) {
+    public static void changeState(State state) {
         getGSM().changeCurrentState(state);
     }
 
     private void changeCurrentState(State state) {
+        stopState();
 
         switch (state) {
-        case menu :
-        	_currentState = new MenuState();
-        	break;
-        case settings :
-        	_currentState = new SettingsState();
-        	break;
-        case statistics :
-        	_currentState = new StatsState();
-        	break;
-        case play:
-        	_currentState = new PlayState();
-        	break;
-        case postgame:
-        	_currentState = new PostGameState();
-        	break;
-        case pregame:
-        	_currentState = new PreGameState();
-        	break;
-        default:
-        	break;
+            case menu :
+                //_currentState = new MenuState();
+                break;
+
         }
 
         startState(_currentState);
@@ -68,30 +43,12 @@ public class GameStateManager {
     private void startState(GameStatePanel gs) {
         Game.addToFrame(gs);
     }
+    private void stopState() {
+        Game.clearFrame();
+    }
 
-
-    
-    public String getVoice() {
-		return _voice;
-	}
-    
-	public static void changeVoice(String voice) {
-	// CHANGING OF VOICE WITHIN SYSTEM NEEDS TO BE IMPLEMENTED	
-		getGSM()._voice = voice;
-	}
-
-    
-	public int getLevel() {
-		return _level;
-	}
-
-
-	public void setLevel(int _level) {
-		this._level = _level;
-	}
-
-
-
-
+    private GameStatePanel getPanel() {
+        return _currentState;
+    }
 
 }

@@ -1,5 +1,4 @@
 
-@SuppressWarnings("serial")
 public class NewGameButton extends ChangeStateButton {
 
     public NewGameButton() {
@@ -8,7 +7,7 @@ public class NewGameButton extends ChangeStateButton {
     }
 
     private void setup() {
-        setText("PLAY");
+        setText("New Game");
     }
 
 }
