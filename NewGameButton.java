@@ -2,7 +2,7 @@
 public class NewGameButton extends ChangeStateButton {
 
     public NewGameButton() {
-        super(GameStateManager.States.pregame);
+        super(GameStateManager.State.pregame);
         setup();
     }
 

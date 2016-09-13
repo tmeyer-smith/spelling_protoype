@@ -4,7 +4,7 @@ import java.awt.event.ActionListener;
 
 abstract class ChangeStateButton extends JButton {
 
-    protected ChangeStateButton(GameStateManager.States nextState) {
+    protected ChangeStateButton(GameStateManager.State nextState) {
         super();
         addActionListener(new ActionListener() {
             @Override

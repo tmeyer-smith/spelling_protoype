@@ -2,7 +2,7 @@
 public class SettingsButton extends ChangeStateButton {
 
     public SettingsButton() {
-        super(GameStateManager.States.settings);
+        super(GameStateManager.State.settings);
         setup();
     }
 

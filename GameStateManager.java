@@ -1,9 +1,8 @@
-import java.util.ArrayList;
 
 public class GameStateManager {
 
-    public enum states {
-        menu
+    public enum State {
+        menu,statistics,settings,play,pregame,postgame
     }
 
     private GameStatePanel _currentState;
@@ -13,24 +12,29 @@ public class GameStateManager {
         //_currentState = new MenuState();
     }
 
-    private static GameStateManager getGSM() {
-        if (_gsm==null) {
-            _gsm = new GameStateManager();
-        }
+    public static GameStateManager getGSM() {
         return _gsm;
     }
 
-    public static void changeState(states state) {
+    public static void initialiseGSM() {
+        if (_gsm==null) {
+            _gsm = new GameStateManager();
+            _gsm.startState(_gsm._currentState);
+        }
+    }
+
+    public static void changeState(State state) {
         getGSM().changeCurrentState(state);
     }
 
-    private void changeCurrentState(states state) {
-        //_currentState.stopState();
+    private void changeCurrentState(State state) {
         stopState();
 
         switch (state) {
             case menu :
                 //_currentState = new MenuState();
+                break;
+
         }
 
         startState(_currentState);
@@ -41,6 +45,10 @@ public class GameStateManager {
     }
     private void stopState() {
         Game.clearFrame();
+    }
+
+    private GameStatePanel getPanel() {
+        return _currentState;
     }
 
 }

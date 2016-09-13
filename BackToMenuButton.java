@@ -2,7 +2,7 @@
 public class BackToMenuButton extends ChangeStateButton {
 
     public BackToMenuButton() {
-        super(GameStateManager.States.menu);
+        super(GameStateManager.State.menu);
         setup();
     }
 
