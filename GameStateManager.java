@@ -1,7 +1,3 @@
-
-
-import java.util.ArrayList;
-
 public class GameStateManager {
 
     public enum State {
@@ -14,11 +10,14 @@ public class GameStateManager {
     }
 
     private GameStatePanel _currentState;
+	private String _voice;
+	private String _level;
     private static GameStateManager _gsm;
-    private ArrayList<Integer> _states;
 
     private GameStateManager() {
         _currentState = new MenuState();
+        _voice = "voice 1";
+        _level = "1";
     }
     
 
@@ -34,20 +33,35 @@ public class GameStateManager {
         return _gsm;
     }
 
-    public static void changeState(State state) {
+
+
+	public static void changeState(State state) {
         getGSM().changeCurrentState(state);
     }
 
     private void changeCurrentState(State state) {
-        stopState();
 
         switch (state) {
-            case menu :
-                _currentState = new MenuState();
-            case settings :
-                _currentState = new SettingsState();
-            case statistics :
-            	_currentState = new StatsState();
+        case menu :
+        	_currentState = new MenuState();
+        	break;
+        case settings :
+        	_currentState = new SettingsState();
+        	break;
+        case statistics :
+        	_currentState = new StatsState();
+        	break;
+        case play:
+        	_currentState = new PlayState();
+        	break;
+        case postgame:
+        	_currentState = new PostGameState();
+        	break;
+        case pregame:
+        	_currentState = new PreGameState();
+        	break;
+        default:
+        	break;
         }
 
         startState(_currentState);
@@ -56,9 +70,30 @@ public class GameStateManager {
     private void startState(GameStatePanel gs) {
         Game.addToFrame(gs);
     }
+
+
     
-    private void stopState() {
-    	Game.clearFrame();
-    }
+    public String getVoice() {
+		return _voice;
+	}
+    
+	public static void changeVoice(String voice) {
+	// CHANGING OF VOICE WITHIN SYSTEM NEEDS TO BE IMPLEMENTED	
+		getGSM()._voice = voice;
+	}
+
+    
+	public String getLevel() {
+		return _level;
+	}
+
+
+	public static void setLevel(String level) {
+		getGSM()._level = level;
+	}
+
+
+
+
 
 }

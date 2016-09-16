@@ -1,26 +1,43 @@
-import java.awt.Color;
 import java.awt.Font;
-import java.awt.Rectangle;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.SwingConstants;
+import javax.swing.JButton;
 
+@SuppressWarnings("serial")
 public class MenuState extends GameStatePanel {
 
 	MenuState() {
-		setBounds(new Rectangle(0, 0, 1200, 800));
-		setBackground(Color.BLACK);
-		setLayout(null);
-
-		JLabel lblSettings = new JLabel("MENU");
-		lblSettings.setHorizontalTextPosition(SwingConstants.CENTER);
-		lblSettings.setHorizontalAlignment(SwingConstants.CENTER);
-		lblSettings.setFont(new Font("Calibri", Font.BOLD, 75));
-		lblSettings.setForeground(Color.WHITE);
-		lblSettings.setBackground(Color.WHITE);
-		lblSettings.setBounds(350, 10, 500, 200);
-		add(lblSettings);
+		super.setupBackground("MENU");
+		
+		NewGameButton btnPlayGame = new NewGameButton();
+		btnPlayGame.setFont(new Font("Calibri", Font.BOLD, 50));
+		btnPlayGame.setBounds(425, 250, 350, 200);
+		add(btnPlayGame);
+		
+		JButton btnStatistics = new JButton("STATISTICS");
+		btnStatistics.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                GameStateManager.changeState(GameStateManager.State.statistics);
+            }
+        });
+		btnStatistics.setBounds(350, 550, 200, 120);
+		btnStatistics.setFont(new Font("Calibri", Font.BOLD, 30));
+		add(btnStatistics);
+		
+		JButton btnSettings = new JButton("SETTINGS");
+		btnSettings.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                GameStateManager.changeState(GameStateManager.State.settings);
+            }
+        });
+		btnSettings.setBounds(650, 550, 200, 120);
+		btnSettings.setFont(new Font("Calibri", Font.BOLD, 30));
+		add(btnSettings);
+		
+		
 	}
 	
 	
