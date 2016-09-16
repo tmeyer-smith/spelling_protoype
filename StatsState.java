@@ -30,12 +30,7 @@ public class StatsState extends GameStatePanel {
 		_statsTable.setRowHeight(20);
 		
 		_statsTable.setModel(new DefaultTableModel(
-			new Object[][] {
-				{"1", "2", null, null},
-				{"3", "4", null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-			},
+			new Object[3][4],
 			new String[] {
 				"Word", "Mastered", "Faulted", "Failed"
 			}
@@ -84,10 +79,10 @@ public class StatsState extends GameStatePanel {
 		protected void updateTable(String level) {
 			_statsTable.setModel(new DefaultTableModel(
 			new Object[][] {
-				{"1", "2", "5", null},
-				{"3", "4", null, null},
-				{null, null, null, null},
-				{null, null, null, null},
+				{"Hi", "2", "5", "2"},
+				{"Ant", "4", "9", "2"},
+				{"Four", "0", "0", "1"},
+				{"Zebra", "0", "2", "0"},
 			},
 			new String[] {
 				"Word", "Mastered", "Faulted", "Failed"

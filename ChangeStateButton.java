@@ -1,11 +1,13 @@
-import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-abstract class ChangeStateButton extends JButton {
+import javax.swing.JButton;
+
+@SuppressWarnings("serial")
+public abstract class ChangeStateButton extends JButton {
 
     protected ChangeStateButton(GameStateManager.State nextState) {
-        super();
+    	setFocusable(false);
         addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -13,5 +15,5 @@ abstract class ChangeStateButton extends JButton {
             }
         });
     }
-
+    
 }

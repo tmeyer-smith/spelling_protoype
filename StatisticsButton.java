@@ -1,4 +1,5 @@
 
+@SuppressWarnings("serial")
 public class StatisticsButton extends ChangeStateButton {
 
     public StatisticsButton() {
