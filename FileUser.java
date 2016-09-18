@@ -1,6 +1,4 @@
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.io.*;
 
 abstract class FileUser {
 
@@ -8,8 +6,8 @@ abstract class FileUser {
     protected final String _WordList = "/WordList/NZCER-spelling-lists.txt";
     protected final String _StatPath = path + "/.stats.txt";
 
-    protected BufferedReader getBr(String filePath) {
-        InputStream input = getClass().getResourceAsStream(filePath);
+    protected BufferedReader getWordListBr() {
+        InputStream input = getClass().getResourceAsStream(_WordList);
         return new BufferedReader(new InputStreamReader(input));
     }
 

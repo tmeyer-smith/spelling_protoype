@@ -10,7 +10,7 @@ public class WordList extends FileUser {
     private static int[] _numOfWordsPerLevel;
 
     protected WordList() {
-        BufferedReader br = getBr(_WordList);
+        BufferedReader br = getWordListBr();
         _numOfWordsPerLevel = new int[_numOfLevels];
 
         try {
@@ -32,7 +32,9 @@ public class WordList extends FileUser {
         return _numOfWordsPerLevel;
     }
 
-    protected String[] getTestList(int level) {
+    protected String[] getTestList(String levelString) {
+
+        int level = Integer.parseInt(levelString);
 
         String[] quizWords = new String[_testSize];
         ArrayList<String> wordsInLevel = getLevelSubList(level);
@@ -48,7 +50,7 @@ public class WordList extends FileUser {
 
     private ArrayList<String> getLevelSubList (int level) {
         ArrayList<String> wordsInLevel = new ArrayList<>();
-        BufferedReader br = getBr(_WordList);
+        BufferedReader br = getWordListBr();
         String line;
         try {
             do {

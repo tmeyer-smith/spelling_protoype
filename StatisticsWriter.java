@@ -46,14 +46,12 @@ public class StatisticsWriter extends FileUser {
     }
 
     private void writeDefaultStats() {
-        BufferedReader br = getBr(_WordList);
-        String line;
+        BufferedReader br = getWordListBr();
         try {
             // false so it overwrites each time
             BufferedWriter bw = new BufferedWriter(new FileWriter(_StatPath,false));
             while (br.ready()) {
-                line = br.readLine();
-                bw.write(line + " 0 0 0\n");
+                bw.write(br.readLine() + " 0 0 0\n");
             }
             bw.close();
             br.close();
@@ -63,7 +61,7 @@ public class StatisticsWriter extends FileUser {
     }
 
     private int findIndexOfWordInFile(String word) {
-        BufferedReader br = getBr(_WordList);
+        BufferedReader br = getWordListBr();
         int i = 0;
         try {
             while (!(br.readLine()).equals(word)) {
