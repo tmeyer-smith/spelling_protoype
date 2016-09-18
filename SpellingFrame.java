@@ -1,8 +1,10 @@
 
+
 import javax.swing.JFrame;
 
 @SuppressWarnings("serial")
 public class SpellingFrame extends JFrame {
+	
 	
 	/**
 	 * Create the panel.

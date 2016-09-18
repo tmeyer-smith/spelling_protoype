@@ -23,48 +23,59 @@ public class PlayState extends GameStatePanel {
 		
 		count = 0;
 		
+		String[] wordList = WordListsManager.getTestList(GameStateManager.getLevel());
 		feedbackWordLabels = new ArrayList<correctWordDisplayLabel>();
 		
 		int wordDisplayHeight = 40;
 		
 		correctWordDisplayLabel lblWord1 = new correctWordDisplayLabel();
 		lblWord1.setBounds(71, 193, 190, wordDisplayHeight);
+		lblWord1.setText(wordList[0]);
 		add(lblWord1);
 		
 		correctWordDisplayLabel lblWord2 = new correctWordDisplayLabel();
 		lblWord2.setBounds(71, 244, 190, wordDisplayHeight);
+		lblWord1.setText(wordList[0]);
 		add(lblWord2);
 		
 		correctWordDisplayLabel lblWord3 = new correctWordDisplayLabel();
 		lblWord3.setBounds(71, 295, 190, wordDisplayHeight);
+		lblWord1.setText(wordList[0]);
 		add(lblWord3);
 		
 		correctWordDisplayLabel lblWord4 = new correctWordDisplayLabel();
 		lblWord4.setBounds(71, 346, 190, wordDisplayHeight);
+		lblWord1.setText(wordList[0]);
 		add(lblWord4);
 		
 		correctWordDisplayLabel lblWord5 = new correctWordDisplayLabel();
 		lblWord5.setBounds(71, 397, 190, wordDisplayHeight);
+		lblWord1.setText(wordList[0]);
 		add(lblWord5);
 		
 		correctWordDisplayLabel lblWord6 = new correctWordDisplayLabel();
 		lblWord6.setBounds(71, 448, 190, wordDisplayHeight);
+		lblWord1.setText(wordList[0]);
 		add(lblWord6);
 		
 		correctWordDisplayLabel lblWord7 = new correctWordDisplayLabel();
 		lblWord7.setBounds(71, 499, 190, wordDisplayHeight);
+		lblWord1.setText(wordList[0]);
 		add(lblWord7);
 		
 		correctWordDisplayLabel lblWord8 = new correctWordDisplayLabel();
 		lblWord8.setBounds(71, 550, 190, wordDisplayHeight);
+		lblWord1.setText(wordList[0]);
 		add(lblWord8);
 		
 		correctWordDisplayLabel lblWord9 = new correctWordDisplayLabel();
 		lblWord9.setBounds(71, 601, 190, wordDisplayHeight);
+		lblWord1.setText(wordList[0]);
 		add(lblWord9);
 		
 		correctWordDisplayLabel lblWord10 = new correctWordDisplayLabel();
 		lblWord10.setBounds(71, 652, 190, wordDisplayHeight);
+		lblWord1.setText(wordList[0]);
 		add(lblWord10);	
 		
 		feedbackWordLabels.add(lblWord1);
