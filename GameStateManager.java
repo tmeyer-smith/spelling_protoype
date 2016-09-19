@@ -79,6 +79,7 @@ public class GameStateManager {
     
 	public static void changeVoice(String voice) {
 	// CHANGING OF VOICE WITHIN SYSTEM NEEDS TO BE IMPLEMENTED	
+	// festival (voice_rab_diphone)
 		getGSM()._voice = voice;
 	}
 

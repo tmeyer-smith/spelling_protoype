@@ -63,7 +63,7 @@ public class StatisticsWriter extends FileUser {
     }
 
     private int findIndexOfWordInFile(String word) {
-        BufferedReader br = getBr(_WordList);
+        BufferedReader br = getWordListBr();
         int i = 0;
         try {
             while (!(br.readLine()).equals(word)) {

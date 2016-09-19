@@ -34,7 +34,7 @@ public class SettingsState extends GameStatePanel {
 		lblAnyUnsavedChanges.setBounds(23, 68, 276, 48);
 		add(lblAnyUnsavedChanges);
 		
-		JButton btnSaveSettings = new JButton("SAVE SETTINGS");
+		final JButton btnSaveSettings = new JButton("SAVE SETTINGS");
 		btnSaveSettings.setFocusable(false);
 		btnSaveSettings.addActionListener(new ActionListener() {
 			@Override
