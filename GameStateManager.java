@@ -73,7 +73,7 @@ public class GameStateManager {
 
 
     
-    public String getVoice() {
+    public static String getVoice() {
 		return _voice;
 	}
     

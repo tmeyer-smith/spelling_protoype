@@ -30,7 +30,7 @@ public class SettingsState extends GameStatePanel {
 		lblAnyUnsavedChanges.setFocusable(false);
 		lblAnyUnsavedChanges.setVisible(false);
 		lblAnyUnsavedChanges.setForeground(Color.WHITE);
-		lblAnyUnsavedChanges.setFont(new Font("Calibri", Font.BOLD, 20));
+		lblAnyUnsavedChanges.setFont(new Font(_font, Font.BOLD, 20));
 		lblAnyUnsavedChanges.setBounds(23, 68, 276, 48);
 		add(lblAnyUnsavedChanges);
 		
@@ -46,7 +46,7 @@ public class SettingsState extends GameStatePanel {
 		}	
 				);
 
-		btnSaveSettings.setFont(new Font("Calibri", Font.PLAIN, 20));
+		btnSaveSettings.setFont(new Font(_font, Font.PLAIN, 20));
 		btnSaveSettings.setBounds(493, 616, 181, 86);
 		btnSaveSettings.setEnabled(false);
 		add(btnSaveSettings);
@@ -78,7 +78,7 @@ public class SettingsState extends GameStatePanel {
 			}
 		}	
 				);
-		chckbxResetStatistics.setFont(new Font("Calibri", Font.BOLD, 20));
+		chckbxResetStatistics.setFont(new Font(_font, Font.BOLD, 20));
 		chckbxResetStatistics.setBackground(Color.BLACK);
 		chckbxResetStatistics.setForeground(Color.WHITE);
 		chckbxResetStatistics.setBounds(157, 378, 679, 41);
@@ -87,7 +87,7 @@ public class SettingsState extends GameStatePanel {
 		
 		JLabel lblReadingVoice = new JLabel("Reading Voice - Choose which voice, you would like to be used in Play mode");
 		lblReadingVoice.setFocusable(false);
-		lblReadingVoice.setFont(new Font("Calibri", Font.BOLD, 20));
+		lblReadingVoice.setFont(new Font(_font, Font.BOLD, 20));
 		lblReadingVoice.setForeground(Color.WHITE);
 		lblReadingVoice.setLabelFor(voiceDropDown);
 		lblReadingVoice.setBounds(157, 222, 679, 48);
@@ -96,7 +96,7 @@ public class SettingsState extends GameStatePanel {
 		JLabel lblResetStatistics = new JLabel("This includes your failed words and will make review mode unplayable");
 		lblResetStatistics.setFocusable(false);
 		lblResetStatistics.setForeground(Color.WHITE);
-		lblResetStatistics.setFont(new Font("Calibri", Font.BOLD, 20));
+		lblResetStatistics.setFont(new Font(_font, Font.BOLD, 20));
 		lblResetStatistics.setBounds(320, 411, 603, 48);
 		add(lblResetStatistics);
 		

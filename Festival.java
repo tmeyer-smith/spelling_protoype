@@ -1,4 +1,3 @@
-
 public class Festival {
 	
 	
@@ -17,6 +16,8 @@ public class Festival {
 			duration = "1";
 		}
 		
+		// add call to SayText within process builder and have (quit) at the end
+		// echo SayText and everything into festival with |
         ProcessBuilder pb = new ProcessBuilder("festival","(Parameter.set 'Duration_Stretch " + duration + "')");
         try {
             Process p = pb.start();
