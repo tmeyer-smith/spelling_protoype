@@ -6,7 +6,7 @@ import javax.swing.JButton;
 @SuppressWarnings("serial")
 public abstract class ChangeStateButton extends JButton {
 
-    protected ChangeStateButton(GameStateManager.State nextState) {
+    protected ChangeStateButton(final GameStateManager.State nextState) {
     	setFocusable(false);
         addActionListener(new ActionListener() {
             @Override

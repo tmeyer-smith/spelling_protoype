@@ -13,7 +13,7 @@ public class BackToMenuButton extends ChangeStateButton {
     private void setup() {
         setText("Return to Menu");
         setIcon(new ImageIcon("C:\\Users\\Tim\\Pictures\\leftArrow.png"));
-		setFont(new Font("Calibri", Font.BOLD, 30));
+		setFont(new Font("SansSerif", Font.BOLD, 25));
 		setBounds(10, 11, 295, 50);
     }
 

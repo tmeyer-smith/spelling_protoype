@@ -10,8 +10,8 @@ public class GameStateManager {
     }
 
     private GameStatePanel _currentState;
-	private String _voice;
-	private String _level;
+	private static String _voice;
+	private static String _level;
     private static GameStateManager _gsm;
 
     private GameStateManager() {
@@ -73,17 +73,18 @@ public class GameStateManager {
 
 
     
-    public String getVoice() {
+    public static String getVoice() {
 		return _voice;
 	}
     
 	public static void changeVoice(String voice) {
 	// CHANGING OF VOICE WITHIN SYSTEM NEEDS TO BE IMPLEMENTED	
+	// festival (voice_rab_diphone)
 		getGSM()._voice = voice;
 	}
 
     
-	public String getLevel() {
+	public static String getLevel() {
 		return _level;
 	}
 

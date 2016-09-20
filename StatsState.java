@@ -44,12 +44,12 @@ public class StatsState extends GameStatePanel {
 			}
 		});
 		_statsTable.getColumnModel().getColumn(0).setMinWidth(10);
-		_statsTable.setFont(new Font("Calibri", Font.PLAIN, 15));
+		_statsTable.setFont(new Font(_font, Font.PLAIN, 15));
 		_statsTable.setBounds(10, 118, 430, 258);
 		
 		JScrollPane scrollPane = new JScrollPane(_statsTable);
 		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-		scrollPane.setFont(new Font("Calibri", Font.PLAIN, 15));
+		scrollPane.setFont(new Font(_font, Font.PLAIN, 15));
 		scrollPane.setBounds(149, 243, 450, 350);
 		_statsTable.setFillsViewportHeight(false);
 		add(scrollPane);

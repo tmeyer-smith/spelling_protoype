@@ -32,12 +32,10 @@ public class WordList extends FileUser {
         return _numOfWordsPerLevel;
     }
 
-    protected String[] getTestList(String levelString) {
-
-        int level = Integer.parseInt(levelString);
+    protected String[] getTestList(String string) {
 
         String[] quizWords = new String[_testSize];
-        ArrayList<String> wordsInLevel = getLevelSubList(level);
+        ArrayList<String> wordsInLevel = getLevelSubList(string);
         int[] indexes = getRandomIndexes(wordsInLevel.size());
 
         for (int i=0; i<quizWords.length; i++) {
@@ -48,14 +46,14 @@ public class WordList extends FileUser {
 
     }
 
-    private ArrayList<String> getLevelSubList (int level) {
+    private ArrayList<String> getLevelSubList (String string) {
         ArrayList<String> wordsInLevel = new ArrayList<>();
         BufferedReader br = getWordListBr();
         String line;
         try {
             do {
                 line = br.readLine();
-            } while (!line.equals("%Level "+level));
+            } while (!line.equals("%Level "+string));
 
             while ((br.ready())&&(!(line=br.readLine()).startsWith("%"))) {
                 wordsInLevel.add(line);

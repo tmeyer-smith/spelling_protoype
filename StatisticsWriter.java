@@ -47,11 +47,13 @@ public class StatisticsWriter extends FileUser {
 
     private void writeDefaultStats() {
         BufferedReader br = getWordListBr();
+        String line;
         try {
             // false so it overwrites each time
             BufferedWriter bw = new BufferedWriter(new FileWriter(_StatPath,false));
             while (br.ready()) {
-                bw.write(br.readLine() + " 0 0 0\n");
+                line = br.readLine();
+                bw.write(line + " 0 0 0\n");
             }
             bw.close();
             br.close();

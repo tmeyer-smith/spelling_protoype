@@ -1,4 +1,5 @@
 import java.awt.Font;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -35,7 +36,7 @@ public class PreGameState extends GameStatePanel {
 		
 		
 		StartGameButton btnPlayGame = new StartGameButton();
-		btnPlayGame.setFont(new Font("Calibri", Font.BOLD, 50));
+		btnPlayGame.setFont(new Font(_font, Font.BOLD, 40));
 		btnPlayGame.setBounds(425, 250, 350, 200);
 		add(btnPlayGame);
 		

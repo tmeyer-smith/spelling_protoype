@@ -13,9 +13,10 @@ import javax.swing.SwingConstants;
 
 @SuppressWarnings("serial")
 public class PlayState extends GameStatePanel {
-	private JTextField textField;
-	private ArrayList<correctWordDisplayLabel> feedbackWordLabels;
+	private JTextField txtTheFeelingIs;
+	private ArrayList<CorrectWordDisplayLabel> feedbackWordLabels;
 	private int count;
+	private String[] wordList;
 
 	PlayState() {
 		setBounds(new Rectangle(0, 0, 1200, 800));
@@ -23,48 +24,59 @@ public class PlayState extends GameStatePanel {
 		
 		count = 0;
 		
-		feedbackWordLabels = new ArrayList<correctWordDisplayLabel>();
+		wordList = WordListsManager.getTestList(GameStateManager.getLevel());
+		feedbackWordLabels = new ArrayList<CorrectWordDisplayLabel>();
 		
 		int wordDisplayHeight = 40;
 		
-		correctWordDisplayLabel lblWord1 = new correctWordDisplayLabel();
+		CorrectWordDisplayLabel lblWord1 = new CorrectWordDisplayLabel();
 		lblWord1.setBounds(71, 193, 190, wordDisplayHeight);
+		lblWord1.setText(wordList[0]);
 		add(lblWord1);
 		
-		correctWordDisplayLabel lblWord2 = new correctWordDisplayLabel();
+		CorrectWordDisplayLabel lblWord2 = new CorrectWordDisplayLabel();
 		lblWord2.setBounds(71, 244, 190, wordDisplayHeight);
+		lblWord1.setText(wordList[1]);
 		add(lblWord2);
 		
-		correctWordDisplayLabel lblWord3 = new correctWordDisplayLabel();
+		CorrectWordDisplayLabel lblWord3 = new CorrectWordDisplayLabel();
 		lblWord3.setBounds(71, 295, 190, wordDisplayHeight);
+		lblWord1.setText(wordList[2]);
 		add(lblWord3);
 		
-		correctWordDisplayLabel lblWord4 = new correctWordDisplayLabel();
+		CorrectWordDisplayLabel lblWord4 = new CorrectWordDisplayLabel();
 		lblWord4.setBounds(71, 346, 190, wordDisplayHeight);
+		lblWord1.setText(wordList[3]);
 		add(lblWord4);
 		
-		correctWordDisplayLabel lblWord5 = new correctWordDisplayLabel();
+		CorrectWordDisplayLabel lblWord5 = new CorrectWordDisplayLabel();
 		lblWord5.setBounds(71, 397, 190, wordDisplayHeight);
+		lblWord1.setText(wordList[4]);
 		add(lblWord5);
 		
-		correctWordDisplayLabel lblWord6 = new correctWordDisplayLabel();
+		CorrectWordDisplayLabel lblWord6 = new CorrectWordDisplayLabel();
 		lblWord6.setBounds(71, 448, 190, wordDisplayHeight);
+		lblWord1.setText(wordList[5]);
 		add(lblWord6);
 		
-		correctWordDisplayLabel lblWord7 = new correctWordDisplayLabel();
+		CorrectWordDisplayLabel lblWord7 = new CorrectWordDisplayLabel();
 		lblWord7.setBounds(71, 499, 190, wordDisplayHeight);
+		lblWord1.setText(wordList[6]);
 		add(lblWord7);
 		
-		correctWordDisplayLabel lblWord8 = new correctWordDisplayLabel();
+		CorrectWordDisplayLabel lblWord8 = new CorrectWordDisplayLabel();
 		lblWord8.setBounds(71, 550, 190, wordDisplayHeight);
+		lblWord1.setText(wordList[7]);
 		add(lblWord8);
 		
-		correctWordDisplayLabel lblWord9 = new correctWordDisplayLabel();
+		CorrectWordDisplayLabel lblWord9 = new CorrectWordDisplayLabel();
 		lblWord9.setBounds(71, 601, 190, wordDisplayHeight);
+		lblWord1.setText(wordList[8]);
 		add(lblWord9);
 		
-		correctWordDisplayLabel lblWord10 = new correctWordDisplayLabel();
+		CorrectWordDisplayLabel lblWord10 = new CorrectWordDisplayLabel();
 		lblWord10.setBounds(71, 652, 190, wordDisplayHeight);
+		lblWord1.setText(wordList[9]);
 		add(lblWord10);	
 		
 		feedbackWordLabels.add(lblWord1);
@@ -79,20 +91,24 @@ public class PlayState extends GameStatePanel {
 		feedbackWordLabels.add(lblWord10);
 		
 		
-		textField = new JTextField();
-		textField.setCaretColor(Color.WHITE);
-		textField.setFont(new Font("Calibri", Font.PLAIN, 30));
-		textField.setBounds(425, 387, 281, 77);
-		textField.addKeyListener(new KeyAdapter() {
-		    public void keyTyped(KeyEvent e) { 
-		        if (textField.getText().length() >= 15 ) 
-		            e.consume(); 
-		    }  
+		txtTheFeelingIs = new JTextField();
+		txtTheFeelingIs.setCaretColor(Color.WHITE);
+		txtTheFeelingIs.setFont(new Font(_font, Font.PLAIN, 30));
+		txtTheFeelingIs.setBounds(425, 387, 281, 77);
+		txtTheFeelingIs.addKeyListener(new KeyAdapter() {
+			public void keyTyped(KeyEvent e) { 
+				char letterTyped = e.getKeyChar();
+				if (Character.isLowerCase(letterTyped)) {
+					e.setKeyChar(Character.toUpperCase(letterTyped));
+				}
+
+				if (txtTheFeelingIs.getText().length() >= 15 ) 
+					e.consume(); 
+			}  
 		});
-		textField.setColumns(10);
-		add(textField);
-		
-		
+		add(txtTheFeelingIs);
+
+
 		
 		JButton btnSubmit = new JButton("SUBMIT");
 		btnSubmit.addActionListener(new ActionListener(){
@@ -101,31 +117,45 @@ public class PlayState extends GameStatePanel {
 				if(count>=20){
 					return;
 				}
-				correctWordDisplayLabel currentLabel = feedbackWordLabels.get(count/2);
-				currentLabel.setText(textField.getText());
+				CorrectWordDisplayLabel currentLabel = feedbackWordLabels.get(count/2);
+				currentLabel.setText(txtTheFeelingIs.getText());
+				String testWord = wordList[count/2];
+				String upperCaseTestWord = testWord.toUpperCase();
 
-				if(textField.getText().equals("correct")) {
+				if(txtTheFeelingIs.getText().equals(upperCaseTestWord)) {
 					currentLabel.setBackground(Color.green);
 					if(count%2==0){
+						WordListsManager.addMasteredWordStat(testWord);
 						currentLabel.setVisible(true);
 						count=count+2;
 					}
 					else {
+						WordListsManager.addFaultedWordStat(testWord);
 						count++;
 					}
 				}
 				else {
-					currentLabel.setBackground(Color.red);
-					if(count%2==0){
-						currentLabel.setVisible(true);
+					if (count%2==1) {
+						WordListsManager.addFailedWordStat(testWord);
 					}
+					currentLabel.setBackground(Color.red);
+					currentLabel.setVisible(true);
 					count++;
 				}
+				
+				// Read out next word if there is one
+				if(count%2==0 && count <20 ) {
+					Festival.use(wordList[count/2]);
+				}
+				
+				txtTheFeelingIs.setText("");
+				txtTheFeelingIs.requestFocus();
+				
 			}
 		});
 		
 		
-		btnSubmit.setFont(new Font("Calibri", Font.BOLD, 20));
+		btnSubmit.setFont(new Font(_font, Font.BOLD, 20));
 		btnSubmit.setBackground(Color.WHITE);
 		btnSubmit.setBounds(767, 387, 126, 77);
 		add(btnSubmit);
@@ -133,7 +163,7 @@ public class PlayState extends GameStatePanel {
 		JLabel label_1 = new JLabel("(1)");
 		label_1.setForeground(Color.WHITE);
 		label_1.setBackground(Color.BLACK);
-		label_1.setFont(new Font("Calibri", Font.BOLD, 30));
+		label_1.setFont(new Font(_font, Font.BOLD, 20));
 		label_1.setHorizontalAlignment(SwingConstants.TRAILING);
 		label_1.setOpaque(true);
 		label_1.setBounds(21, 193, wordDisplayHeight, wordDisplayHeight);
@@ -143,7 +173,7 @@ public class PlayState extends GameStatePanel {
 		label_2.setOpaque(true);
 		label_2.setHorizontalAlignment(SwingConstants.TRAILING);
 		label_2.setForeground(Color.WHITE);
-		label_2.setFont(new Font("Calibri", Font.BOLD, 30));
+		label_2.setFont(new Font(_font, Font.BOLD, 20));
 		label_2.setBackground(Color.BLACK);
 		label_2.setBounds(21, 244, wordDisplayHeight, wordDisplayHeight);
 		add(label_2);
@@ -152,7 +182,7 @@ public class PlayState extends GameStatePanel {
 		label_3.setOpaque(true);
 		label_3.setHorizontalAlignment(SwingConstants.TRAILING);
 		label_3.setForeground(Color.WHITE);
-		label_3.setFont(new Font("Calibri", Font.BOLD, 30));
+		label_3.setFont(new Font(_font, Font.BOLD, 20));
 		label_3.setBackground(Color.BLACK);
 		label_3.setBounds(21, 295, wordDisplayHeight, wordDisplayHeight);
 		add(label_3);
@@ -161,7 +191,7 @@ public class PlayState extends GameStatePanel {
 		label_4.setOpaque(true);
 		label_4.setHorizontalAlignment(SwingConstants.TRAILING);
 		label_4.setForeground(Color.WHITE);
-		label_4.setFont(new Font("Calibri", Font.BOLD, 30));
+		label_4.setFont(new Font(_font, Font.BOLD, 20));
 		label_4.setBackground(Color.BLACK);
 		label_4.setBounds(21, 346, wordDisplayHeight, wordDisplayHeight);
 		add(label_4);
@@ -170,7 +200,7 @@ public class PlayState extends GameStatePanel {
 		label_5.setOpaque(true);
 		label_5.setHorizontalAlignment(SwingConstants.TRAILING);
 		label_5.setForeground(Color.WHITE);
-		label_5.setFont(new Font("Calibri", Font.BOLD, 30));
+		label_5.setFont(new Font(_font, Font.BOLD, 20));
 		label_5.setBackground(Color.BLACK);
 		label_5.setBounds(21, 397, wordDisplayHeight, wordDisplayHeight);
 		add(label_5);
@@ -179,7 +209,7 @@ public class PlayState extends GameStatePanel {
 		label_6.setOpaque(true);
 		label_6.setHorizontalAlignment(SwingConstants.TRAILING);
 		label_6.setForeground(Color.WHITE);
-		label_6.setFont(new Font("Calibri", Font.BOLD, 30));
+		label_6.setFont(new Font(_font, Font.BOLD, 20));
 		label_6.setBackground(Color.BLACK);
 		label_6.setBounds(21, 448, wordDisplayHeight, wordDisplayHeight);
 		add(label_6);
@@ -188,7 +218,7 @@ public class PlayState extends GameStatePanel {
 		label_7.setOpaque(true);
 		label_7.setHorizontalAlignment(SwingConstants.TRAILING);
 		label_7.setForeground(Color.WHITE);
-		label_7.setFont(new Font("Calibri", Font.BOLD, 30));
+		label_7.setFont(new Font(_font, Font.BOLD, 20));
 		label_7.setBackground(Color.BLACK);
 		label_7.setBounds(21, 499, wordDisplayHeight, wordDisplayHeight);
 		add(label_7);
@@ -197,7 +227,7 @@ public class PlayState extends GameStatePanel {
 		label_8.setOpaque(true);
 		label_8.setHorizontalAlignment(SwingConstants.TRAILING);
 		label_8.setForeground(Color.WHITE);
-		label_8.setFont(new Font("Calibri", Font.BOLD, 30));
+		label_8.setFont(new Font(_font, Font.BOLD, 20));
 		label_8.setBackground(Color.BLACK);
 		label_8.setBounds(21, 550, wordDisplayHeight, wordDisplayHeight);
 		add(label_8);
@@ -206,7 +236,7 @@ public class PlayState extends GameStatePanel {
 		label_9.setOpaque(true);
 		label_9.setHorizontalAlignment(SwingConstants.TRAILING);
 		label_9.setForeground(Color.WHITE);
-		label_9.setFont(new Font("Calibri", Font.BOLD, 30));
+		label_9.setFont(new Font(_font, Font.BOLD, 20));
 		label_9.setBackground(Color.BLACK);
 		label_9.setBounds(21, 601, 40, 40);
 		add(label_9);
@@ -215,12 +245,12 @@ public class PlayState extends GameStatePanel {
 		label_10.setOpaque(true);
 		label_10.setHorizontalAlignment(SwingConstants.TRAILING);
 		label_10.setForeground(Color.WHITE);
-		label_10.setFont(new Font("Calibri", Font.BOLD, 30));
+		label_10.setFont(new Font(_font, Font.BOLD, 20));
 		label_10.setBackground(Color.BLACK);
 		label_10.setBounds(10, 652, 50, wordDisplayHeight);
 		add(label_10);
 		
 		
-		
+		Festival.use(wordList[count/2]); // Say the first word in the quiz
 	}
 }

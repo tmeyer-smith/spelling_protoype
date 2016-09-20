@@ -9,6 +9,7 @@ public class Game {
     public static void main(String[] args) {
         setUpFrame();
         GameStateManager.initializeGSM();
+        WordListsManager.initialise();
         _frame.setVisible(true);
     }
 

@@ -11,7 +11,7 @@ public class MenuState extends GameStatePanel {
 		super.setupBackground("MENU");
 		
 		NewGameButton btnPlayGame = new NewGameButton();
-		btnPlayGame.setFont(new Font("Calibri", Font.BOLD, 50));
+		btnPlayGame.setFont(new Font(_font, Font.BOLD, 40));
 		btnPlayGame.setBounds(425, 250, 350, 200);
 		add(btnPlayGame);
 		
@@ -23,7 +23,7 @@ public class MenuState extends GameStatePanel {
             }
         });
 		btnStatistics.setBounds(350, 550, 200, 120);
-		btnStatistics.setFont(new Font("Calibri", Font.BOLD, 30));
+		btnStatistics.setFont(new Font(_font, Font.BOLD, 25));
 		add(btnStatistics);
 		
 		JButton btnSettings = new JButton("SETTINGS");
@@ -34,7 +34,7 @@ public class MenuState extends GameStatePanel {
             }
         });
 		btnSettings.setBounds(650, 550, 200, 120);
-		btnSettings.setFont(new Font("Calibri", Font.BOLD, 30));
+		btnSettings.setFont(new Font(_font, Font.BOLD, 25));
 		add(btnSettings);
 		
 		
