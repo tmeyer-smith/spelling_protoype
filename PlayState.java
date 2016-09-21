@@ -13,7 +13,8 @@ import javax.swing.SwingConstants;
 
 @SuppressWarnings("serial")
 public class PlayState extends GameStatePanel {
-	private JTextField txtTheFeelingIs;
+	private JTextField answerBox;
+	private JButton submitButton;
 	private ArrayList<CorrectWordDisplayLabel> feedbackWordLabels;
 	private int count;
 	private String[] wordList;
@@ -89,40 +90,21 @@ public class PlayState extends GameStatePanel {
 		feedbackWordLabels.add(lblWord8);
 		feedbackWordLabels.add(lblWord9);
 		feedbackWordLabels.add(lblWord10);
-		
-		
-		txtTheFeelingIs = new JTextField();
-		txtTheFeelingIs.setCaretColor(Color.WHITE);
-		txtTheFeelingIs.setFont(new Font(_font, Font.PLAIN, 30));
-		txtTheFeelingIs.setBounds(425, 387, 281, 77);
-		txtTheFeelingIs.addKeyListener(new KeyAdapter() {
-			public void keyTyped(KeyEvent e) { 
-				char letterTyped = e.getKeyChar();
-				if (Character.isLowerCase(letterTyped)) {
-					e.setKeyChar(Character.toUpperCase(letterTyped));
-				}
-
-				if (txtTheFeelingIs.getText().length() >= 15 ) 
-					e.consume(); 
-			}  
-		});
-		add(txtTheFeelingIs);
-
 
 		
-		JButton btnSubmit = new JButton("SUBMIT");
-		btnSubmit.addActionListener(new ActionListener(){
+		submitButton = new JButton("SUBMIT");
+		submitButton.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if(count>=20){
 					return;
 				}
 				CorrectWordDisplayLabel currentLabel = feedbackWordLabels.get(count/2);
-				currentLabel.setText(txtTheFeelingIs.getText());
+				currentLabel.setText(answerBox.getText());
 				String testWord = wordList[count/2];
 				String upperCaseTestWord = testWord.toUpperCase();
 
-				if(txtTheFeelingIs.getText().equals(upperCaseTestWord)) {
+				if(answerBox.getText().equals(upperCaseTestWord)) {
 					currentLabel.setBackground(Color.green);
 					if(count%2==0){
 						WordListsManager.addMasteredWordStat(testWord);
@@ -138,6 +120,9 @@ public class PlayState extends GameStatePanel {
 					if (count%2==1) {
 						WordListsManager.addFailedWordStat(testWord);
 					}
+					else {
+						Festival.use("Incorrect try again. Spell the word: " + wordList[count/2]);
+					}
 					currentLabel.setBackground(Color.red);
 					currentLabel.setVisible(true);
 					count++;
@@ -145,20 +130,43 @@ public class PlayState extends GameStatePanel {
 				
 				// Read out next word if there is one
 				if(count%2==0 && count <20 ) {
-					Festival.use(wordList[count/2]);
+					Festival.use("Spell the word: " + wordList[count/2]);
 				}
 				
-				txtTheFeelingIs.setText("");
-				txtTheFeelingIs.requestFocus();
+				submitButton.setEnabled(false);
+				answerBox.setText("");
+				answerBox.requestFocus();
 				
 			}
 		});
+		submitButton.setFont(new Font(_font, Font.BOLD, 20));
+		submitButton.setBackground(Color.WHITE);
+		submitButton.setBounds(767, 387, 126, 77);
+		add(submitButton);
 		
 		
-		btnSubmit.setFont(new Font(_font, Font.BOLD, 20));
-		btnSubmit.setBackground(Color.WHITE);
-		btnSubmit.setBounds(767, 387, 126, 77);
-		add(btnSubmit);
+		
+		answerBox = new JTextField();
+		answerBox.setHorizontalAlignment(JTextField.CENTER);
+		answerBox.setCaretColor(Color.WHITE);
+		answerBox.setFont(new Font(_font, Font.PLAIN, 30));
+		answerBox.setBounds(425, 387, 281, 77);
+		answerBox.requestFocus();
+		answerBox.addKeyListener(new KeyAdapter() {
+			public void keyTyped(KeyEvent e) { 
+				submitButton.setEnabled(true);
+				
+				char letterTyped = e.getKeyChar();
+				if (Character.isLowerCase(letterTyped)) {
+					e.setKeyChar(Character.toUpperCase(letterTyped));
+				}
+
+				if (answerBox.getText().length() >= 15 ) 
+					e.consume(); 
+			}  
+		});
+		add(answerBox);
+		
 		
 		JLabel label_1 = new JLabel("(1)");
 		label_1.setForeground(Color.WHITE);
@@ -251,6 +259,6 @@ public class PlayState extends GameStatePanel {
 		add(label_10);
 		
 		
-		Festival.use(wordList[count/2]); // Say the first word in the quiz
+		Festival.use("Spell the word: " + wordList[count/2]); // Say the first word in the quiz
 	}
 }

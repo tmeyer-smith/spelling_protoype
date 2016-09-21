@@ -28,9 +28,10 @@ public class PreGameState extends GameStatePanel {
 		}
 				);
 
-		comboBox.setModel(new DefaultComboBoxModel<String>(new String[] {"Level 11", "Level 10", "Level 9", "Level 8",
-				"Level 7", "Level 6", "Level 5", "Level 4", "Level 3", "Level 2", "Level 1"}));
+		comboBox.setModel(new DefaultComboBoxModel<String>(new String[] {"Level 1", "Level 2", "Level 3", "Level 4",
+				"Level 5", "Level 6", "Level 7", "Level 8", "Level 9", "Level 10", "Level 11"}));
 		comboBox.setBounds(870, 243, 161, 20);
+		comboBox.setSelectedIndex(Integer.parseInt(GameStateManager.getLevel())-1);
 		add(comboBox);
 		
 		

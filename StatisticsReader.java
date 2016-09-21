@@ -55,7 +55,7 @@ public class StatisticsReader extends FileUser {
             BufferedReader br = new BufferedReader((new FileReader(_StatPath)));
             while (br.ready()) {
                 if (!(line = br.readLine()).startsWith("%")) {
-                    String[] split = line.split("//s+");
+                    String[] split = line.split("\\s+");
                     System.arraycopy(split, 0, statArray[count], 0, 4);
                     count++;
                 }

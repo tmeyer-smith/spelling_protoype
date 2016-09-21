@@ -10,7 +10,7 @@ public class CorrectWordDisplayLabel extends JLabel {
 	CorrectWordDisplayLabel() {
 		setHorizontalAlignment(SwingConstants.CENTER);
 		setHorizontalTextPosition(SwingConstants.CENTER);
-		setVisible(true);
+		setVisible(false);
 		setOpaque(true);
 		setFont(new Font("Calibri", Font.PLAIN, 20));
 		setBackground(Color.RED);

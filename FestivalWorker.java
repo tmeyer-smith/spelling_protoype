@@ -14,10 +14,10 @@ public class FestivalWorker extends SwingWorker<Void, Void> {
     }
 
     private void sayMessage() {
-        ProcessBuilder pb = new ProcessBuilder("bash","-c","echo "+_message+" | festival --tts");
+        ProcessBuilder pb = new ProcessBuilder("festival","(voice_" + GameStateManager.getGSM().getVoice() + ")",
+        		                               "(SayText \"" + _message + "\")" + "(quit)");
         try {
             Process p = pb.start();
-            p.waitFor();
         } catch (Exception e) {
             e.printStackTrace();
         }
