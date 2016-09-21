@@ -6,7 +6,8 @@ public class GameStateManager {
         settings,
         play,
         pregame,
-        postgame
+        postgame,
+        videoReward
     }
 
     private GameStatePanel _currentState;
@@ -15,8 +16,9 @@ public class GameStateManager {
     private static GameStateManager _gsm;
 
     private GameStateManager() {
-        _currentState = new MenuState();
-        _voice = "voice 1";
+    	_currentState = new VideoRewardState(); 
+      // _currentState = new MenuState(); 
+        _voice = "rab_diphone";
         _level = "1";
     }
     
@@ -60,6 +62,9 @@ public class GameStateManager {
         case pregame:
         	_currentState = new PreGameState();
         	break;
+        case videoReward:
+            _currentState = new VideoRewardState();
+            break;
         default:
         	break;
         }
@@ -78,8 +83,6 @@ public class GameStateManager {
 	}
     
 	public static void changeVoice(String voice) {
-	// CHANGING OF VOICE WITHIN SYSTEM NEEDS TO BE IMPLEMENTED	
-	// festival (voice_rab_diphone)
 		getGSM()._voice = voice;
 	}
 

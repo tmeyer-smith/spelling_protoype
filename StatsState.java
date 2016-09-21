@@ -30,12 +30,11 @@ public class StatsState extends GameStatePanel {
 		_statsTable.setRowHeight(20);
 		
 		_statsTable.setModel(new DefaultTableModel(
-			new Object[3][4],
+			WordListsManager.getStatsForLevel(0),
 			new String[] {
 				"Word", "Mastered", "Faulted", "Failed"
 			}
-		) 
-		{
+		) {
 			boolean[] columnEditables = new boolean[] {
 				false, false, false, false
 			};
@@ -76,26 +75,28 @@ public class StatsState extends GameStatePanel {
 	}
 	
 	
-		protected void updateTable(String level) {
-			_statsTable.setModel(new DefaultTableModel(
-			new Object[][] {
-				{"Hi", "2", "5", "2"},
-				{"Ant", "4", "9", "2"},
-				{"Four", "0", "0", "1"},
-				{"Zebra", "0", "2", "0"},
-			},
-			new String[] {
-				"Word", "Mastered", "Faulted", "Failed"
-			}
-		) {
+	protected void updateTable(String level) {
+		String[][] stats;
+		if (level.equals("All Levels")) {
+			stats = WordListsManager.getStatsForLevel(0);
+		}
+		else {
+			stats = WordListsManager.getStatsForLevel(Integer.parseInt(level.substring(6)));
+		}
+
+		_statsTable.setModel(new DefaultTableModel( stats,
+				new String[] {
+						"Word", "Mastered", "Faulted", "Failed"
+		}
+				) {
 			boolean[] columnEditables = new boolean[] {
-				false, false, false, false
+					false, false, false, false
 			};
 			public boolean isCellEditable(int row, int column) {
 				return columnEditables[column];
 			}
 		});
-		}
-		
+	}
+
 
 }

@@ -30,8 +30,8 @@ public class SettingsState extends GameStatePanel {
 		lblAnyUnsavedChanges.setFocusable(false);
 		lblAnyUnsavedChanges.setVisible(false);
 		lblAnyUnsavedChanges.setForeground(Color.WHITE);
-		lblAnyUnsavedChanges.setFont(new Font(_font, Font.BOLD, 20));
-		lblAnyUnsavedChanges.setBounds(23, 68, 276, 48);
+		lblAnyUnsavedChanges.setFont(new Font(_font, Font.BOLD, 15));
+		lblAnyUnsavedChanges.setBounds(23, 68, 300, 48);
 		add(lblAnyUnsavedChanges);
 		
 		final JButton btnSaveSettings = new JButton("SAVE SETTINGS");
@@ -46,7 +46,7 @@ public class SettingsState extends GameStatePanel {
 		}	
 				);
 
-		btnSaveSettings.setFont(new Font(_font, Font.PLAIN, 20));
+		btnSaveSettings.setFont(new Font(_font, Font.BOLD, 15));
 		btnSaveSettings.setBounds(493, 616, 181, 86);
 		btnSaveSettings.setEnabled(false);
 		add(btnSaveSettings);
@@ -55,7 +55,7 @@ public class SettingsState extends GameStatePanel {
 		
 		voiceDropDown = new JComboBox<String>();
 		voiceDropDown.setFocusable(false);
-		voiceDropDown.setModel(new DefaultComboBoxModel<String>(new String[] {"Voice 1", "Voice 2", "Voice 3"}));
+		voiceDropDown.setModel(new DefaultComboBoxModel<String>(Festival.getVoices()));
 		voiceDropDown.setBounds(157, 281, 158, 27);
 		voiceDropDown.addActionListener(new ActionListener() {
 			@Override
@@ -78,7 +78,7 @@ public class SettingsState extends GameStatePanel {
 			}
 		}	
 				);
-		chckbxResetStatistics.setFont(new Font(_font, Font.BOLD, 20));
+		chckbxResetStatistics.setFont(new Font(_font, Font.BOLD, 15));
 		chckbxResetStatistics.setBackground(Color.BLACK);
 		chckbxResetStatistics.setForeground(Color.WHITE);
 		chckbxResetStatistics.setBounds(157, 378, 679, 41);
@@ -87,7 +87,7 @@ public class SettingsState extends GameStatePanel {
 		
 		JLabel lblReadingVoice = new JLabel("Reading Voice - Choose which voice, you would like to be used in Play mode");
 		lblReadingVoice.setFocusable(false);
-		lblReadingVoice.setFont(new Font(_font, Font.BOLD, 20));
+		lblReadingVoice.setFont(new Font(_font, Font.BOLD, 15));
 		lblReadingVoice.setForeground(Color.WHITE);
 		lblReadingVoice.setLabelFor(voiceDropDown);
 		lblReadingVoice.setBounds(157, 222, 679, 48);
@@ -96,7 +96,7 @@ public class SettingsState extends GameStatePanel {
 		JLabel lblResetStatistics = new JLabel("This includes your failed words and will make review mode unplayable");
 		lblResetStatistics.setFocusable(false);
 		lblResetStatistics.setForeground(Color.WHITE);
-		lblResetStatistics.setFont(new Font(_font, Font.BOLD, 20));
+		lblResetStatistics.setFont(new Font(_font, Font.BOLD, 15));
 		lblResetStatistics.setBounds(320, 411, 603, 48);
 		add(lblResetStatistics);
 		

@@ -26,10 +26,9 @@ public class GameStatePanel extends JPanel {
 		lblTitle.setFocusable(false);
 		add(lblTitle);
 		
-		if (title!="MENU") {
+		if ((title!="MENU") && title!="VIDEO REWARD") {
 			BackToMenuButton btnMainMenu = new BackToMenuButton();
 			add(btnMainMenu);
 		}
 	}
-	
 }

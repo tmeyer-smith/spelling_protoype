@@ -5,10 +5,12 @@ public class WordListsManager {
     /** Make into a package with FileUser, WordList, StatisticsWriter, StatisticsReader */
 
     private static WordListsManager _wlm;
+	private StatisticsReader _statReaderObject;
     private WordList _wordObject;
     private StatisticsWriter _statWriterObject;
 
     private WordListsManager() {
+    	_statReaderObject = new StatisticsReader();
         _wordObject = new WordList();
         _statWriterObject = new StatisticsWriter();
     }
@@ -45,6 +47,10 @@ public class WordListsManager {
     }
     public static void clearStatistics() {
         getWlm()._statWriterObject.resetStatisticFiles();
+    }
+    
+    public static String[][] getStatsForLevel(int level) {
+        return getWlm()._statReaderObject.getStatsForLevel(level);
     }
 
     public static void main(String[] args) {
