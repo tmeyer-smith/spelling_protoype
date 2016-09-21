@@ -7,10 +7,12 @@ public class WordListsManager {
     private static WordListsManager _wlm;
     private WordList _wordObject;
     private StatisticsWriter _statWriterObject;
+    private StatisticsReader _statReaderObject;
 
     private WordListsManager() {
         _wordObject = new WordList();
         _statWriterObject = new StatisticsWriter();
+        _statReaderObject = new StatisticsReader();
     }
 
     private static WordListsManager getWlm() {
@@ -28,8 +30,8 @@ public class WordListsManager {
         _statWriterObject.resetStatisticFiles();
     }
 
-    public static String[] getTestList(String string) {
-        return getWlm()._wordObject.getTestList(string);
+    public static String[] getTestList(String level) {
+        return getWlm()._wordObject.getTestList(level);
     }
     public static int[] getNumOfWordsPerLevel() {
         return getWlm()._wordObject.getNumOfWordsPerLevel();
@@ -46,9 +48,13 @@ public class WordListsManager {
     public static void clearStatistics() {
         getWlm()._statWriterObject.resetStatisticFiles();
     }
+    public static String[][] getStatsForLevel(int level) {
+        return getWlm()._statReaderObject.getStatsForLevel(level);
+    }
 
     public static void main(String[] args) {
-    	System.out.println(Arrays.toString(WordListsManager.getTestList("11")));
+        System.out.println(Arrays.toString(WordListsManager.getTestList("11")));
+
     }
 
 }
