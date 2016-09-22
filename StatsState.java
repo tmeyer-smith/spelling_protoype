@@ -75,21 +75,28 @@ public class StatsState extends GameStatePanel {
 	}
 	
 	
-		protected void updateTable(String level) {
-			_statsTable.setModel(new DefaultTableModel(
-			WordListsManager.getStatsForLevel(Integer.parseInt(level.substring(6))),
-			new String[] {
-				"Word", "Mastered", "Faulted", "Failed"
-			}
-		) {
+	protected void updateTable(String level) {
+		String[][] stats;
+		if (level.equals("All Levels")) {
+			stats = WordListsManager.getStatsForLevel(0);
+		}
+		else {
+			stats = WordListsManager.getStatsForLevel(Integer.parseInt(level.substring(6)));
+		}
+
+		_statsTable.setModel(new DefaultTableModel( stats,
+				new String[] {
+						"Word", "Mastered", "Faulted", "Failed"
+		}
+				) {
 			boolean[] columnEditables = new boolean[] {
-				false, false, false, false
+					false, false, false, false
 			};
 			public boolean isCellEditable(int row, int column) {
 				return columnEditables[column];
 			}
 		});
-		}
-		
+	}
+
 
 }

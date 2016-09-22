@@ -9,7 +9,7 @@ import javax.swing.SwingConstants;
 @SuppressWarnings("serial")
 public class GameStatePanel extends JPanel {
 	
-	protected String _font = "SansSerif";
+	protected String _font = "Dialog";
 	
 	protected void setupBackground(String title) {
 		setBounds(new Rectangle(0, 0, 1200, 800));
@@ -26,7 +26,7 @@ public class GameStatePanel extends JPanel {
 		lblTitle.setFocusable(false);
 		add(lblTitle);
 		
-		if (title!="MENU") {
+		if ((title!="MENU") && title!="VIDEO REWARD") {
 			BackToMenuButton btnMainMenu = new BackToMenuButton();
 			add(btnMainMenu);
 		}

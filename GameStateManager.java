@@ -16,8 +16,7 @@ public class GameStateManager {
     private static GameStateManager _gsm;
 
     private GameStateManager() {
-        _currentState = new VideoRewardState();
-        //_currentState = new MenuState();       change this back!!!!!!
+        _currentState = new MenuState(); 
         _voice = "rab_diphone";
         _level = "1";
     }

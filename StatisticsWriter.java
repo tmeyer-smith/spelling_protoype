@@ -29,6 +29,8 @@ public class StatisticsWriter extends FileUser {
     protected void addToStats(String word, Result result) {
 
         int index = findIndexOfWordInFile(word);
+        int levelIndex = findIndexOfLevelDeclaration(word);
+
         int type = getType(result);
         Path filepath = Paths.get(_StatPath);
         try {
@@ -37,6 +39,16 @@ public class StatisticsWriter extends FileUser {
             String[] split = line.split("\\s+");
             split[type] = Integer.toString((Integer.parseInt(split[type]) + 1));
             fileContent.set(index, split[0]+" "+split[1]+" "+split[2]+" "+split[3]);
+
+            String levelLine = fileContent.get(levelIndex);
+            String[] levelSplit = levelLine.split("\\s+");
+            levelSplit[type] = Integer.toString((Integer.parseInt(levelSplit[type]) + 1));
+            fileContent.set(levelIndex, levelSplit[0]+" "+levelSplit[1]+" "+levelSplit[2]+" "+levelSplit[3]);
+
+            String totalLine = fileContent.get(0);
+            String[] totalSplit = totalLine.split("\\s+");
+            totalSplit[type] = Integer.toString((Integer.parseInt(totalSplit[type]) + 1));
+            fileContent.set(0, totalSplit[0]+" "+totalSplit[1]+" "+totalSplit[2]+" "+totalSplit[3]);
 
             Files.write(filepath, fileContent, StandardCharsets.UTF_8);
 
@@ -47,13 +59,18 @@ public class StatisticsWriter extends FileUser {
 
     private void writeDefaultStats() {
         BufferedReader br = getWordListBr();
-        String line;
         try {
             // false so it overwrites each time
             BufferedWriter bw = new BufferedWriter(new FileWriter(_StatPath,false));
+            bw.write("%Level-0 0 0 0\n");
+            String line;
             while (br.ready()) {
-                line = br.readLine();
-                bw.write(line + " 0 0 0\n");
+                if ((line=br.readLine()).startsWith("%")) {
+                    String[] split = line.split("\\s+");
+                    bw.write(split[0]+"-"+split[1]+" 0 0 0\n");
+                } else {
+                    bw.write(line + " 0 0 0\n");
+                }
             }
             bw.close();
             br.close();
@@ -64,7 +81,7 @@ public class StatisticsWriter extends FileUser {
 
     private int findIndexOfWordInFile(String word) {
         BufferedReader br = getWordListBr();
-        int i = 0;
+        int i = 1;
         try {
             while (!(br.readLine()).equals(word)) {
                 i++;
@@ -73,6 +90,25 @@ public class StatisticsWriter extends FileUser {
             ioe.printStackTrace();
         }
         return i;
+    }
+
+    private int findIndexOfLevelDeclaration(String word) {
+        BufferedReader br = getWordListBr();
+        int i=0;
+        int lineIndex=0;
+        String line;
+        try {
+            while (!(line=br.readLine()).equals(word)) {
+                i++;
+                if (line.startsWith("%")) {
+                    lineIndex+=i;
+                    i=0;
+                }
+            }
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+        }
+        return lineIndex;
     }
 
     private int getType(Result r) {

@@ -1,18 +1,21 @@
-import java.util.Arrays;
+//import java.util.Arrays;
 
 public class WordListsManager {
 
     /** Make into a package with FileUser, WordList, StatisticsWriter, StatisticsReader */
 
     private static WordListsManager _wlm;
-	private StatisticsReader _statReaderObject;
     private WordList _wordObject;
     private StatisticsWriter _statWriterObject;
+    private StatisticsReader _statReaderObject;
+
+   // private static int[] numWordsPerLevel;
 
     private WordListsManager() {
-    	_statReaderObject = new StatisticsReader();
         _wordObject = new WordList();
         _statWriterObject = new StatisticsWriter();
+        _statReaderObject = new StatisticsReader();
+      //  numWordsPerLevel = _wordObject.getNumOfWordsPerLevel();
     }
 
     private static WordListsManager getWlm() {
@@ -30,12 +33,14 @@ public class WordListsManager {
         _statWriterObject.resetStatisticFiles();
     }
 
-    public static String[] getTestList(String string) {
-        return getWlm()._wordObject.getTestList(string);
+    public static String[] getTestList(String level) {
+        return getWlm()._wordObject.getTestList(level);
     }
+
     public static int[] getNumOfWordsPerLevel() {
         return getWlm()._wordObject.getNumOfWordsPerLevel();
     }
+
     public static void addMasteredWordStat(String word) {
         getWlm()._statWriterObject.addToStats(word, StatisticsWriter.Result.mastered);
     }
@@ -48,13 +53,31 @@ public class WordListsManager {
     public static void clearStatistics() {
         getWlm()._statWriterObject.resetStatisticFiles();
     }
-    
+
     public static String[][] getStatsForLevel(int level) {
         return getWlm()._statReaderObject.getStatsForLevel(level);
     }
+    public static int getAccuracyForLevel(String level) {
+        int levelInt = Integer.parseInt(level);
+        return getWlm()._statReaderObject.getLevelAccuracy(levelInt);
+    }
+    public static int getNumWordsCorrectForLevel(String level) {
+        int levelInt = Integer.parseInt(level);
+        return getWlm()._statReaderObject.getWordsCorrectForLevel(levelInt);
+    }
 
     public static void main(String[] args) {
-    	System.out.println(Arrays.toString(WordListsManager.getTestList("11")));
+
+        WordListsManager.initialise();
+
+        WordListsManager.addFailedWordStat("we");
+        WordListsManager.addFailedWordStat("a");
+        WordListsManager.addMasteredWordStat("to");
+        WordListsManager.addFaultedWordStat("went");
+
+        System.out.println(WordListsManager.getAccuracyForLevel("0"));
+        System.out.println(WordListsManager.getNumWordsCorrectForLevel("1"));
+
     }
 
 }

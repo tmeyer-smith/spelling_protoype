@@ -67,10 +67,19 @@ public class Festival {
 			e.printStackTrace();
 		}
 		
-		int firstVoice = output.indexOf("festival> (rab_diphone");
+		int firstVoiceIndex = 0;
+		
+		// Finds where the voices start
+		for(int j=0; j<output.size(); j++) {
+			if(output.get(j).startsWith("festival>")) {
+				firstVoiceIndex = j;
+				break;
+			}
+		}
+		
 		
 		// Removes unwanted lines at the start of output stream
-		for (int i = 0; i<firstVoice; i++) {
+		for (int i = 0; i<firstVoiceIndex; i++) {
 			output.remove(0);
 		}
 		
@@ -87,7 +96,7 @@ public class Festival {
 		output.set(lastVoice, output.get(lastVoice).substring(1, output.get(lastVoice).length()-1));
 		
 		
-		// Removes unwanted lines at the start of output stream
+		// Removes unwanted space at the start of each voice
 		for (int i = 1; i<output.size()-1; i++) {
 			output.set(i, output.get(i).substring(1));
 		}

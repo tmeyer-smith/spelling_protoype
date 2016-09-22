@@ -96,9 +96,7 @@ public class PlayState extends GameStatePanel {
 		submitButton.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if(count>=20){
-					return;
-				}
+				
 				CorrectWordDisplayLabel currentLabel = feedbackWordLabels.get(count/2);
 				currentLabel.setText(answerBox.getText());
 				String testWord = wordList[count/2];
@@ -131,6 +129,10 @@ public class PlayState extends GameStatePanel {
 				// Read out next word if there is one
 				if(count%2==0 && count <20 ) {
 					Festival.use("Spell the word: " + wordList[count/2]);
+				}
+				
+				if(count>=20){
+					GameStateManager.changeState(GameStateManager.State.postgame);
 				}
 				
 				submitButton.setEnabled(false);
@@ -257,6 +259,22 @@ public class PlayState extends GameStatePanel {
 		label_10.setBackground(Color.BLACK);
 		label_10.setBounds(10, 652, 50, wordDisplayHeight);
 		add(label_10);
+		
+		
+		
+		JButton btnRepeatWord = new JButton("Repeat Word");
+		btnRepeatWord.setBounds(472, 530, 200, 50);
+		btnRepeatWord.setFont(new Font("SansSerif", Font.BOLD, 20));
+		btnRepeatWord.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if(count<20) {
+					Festival.use(wordList[count/2]);
+				}
+			}
+		});
+		
+		add(btnRepeatWord);
 		
 		
 		Festival.use("Spell the word: " + wordList[count/2]); // Say the first word in the quiz
