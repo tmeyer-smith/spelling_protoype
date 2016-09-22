@@ -1,7 +1,12 @@
 import javax.swing.JButton;
 
+import com.sun.jna.Native;
+import com.sun.jna.NativeLibrary;
+
+import uk.co.caprica.vlcj.binding.LibVlc;
 import uk.co.caprica.vlcj.component.EmbeddedMediaPlayerComponent;
 import uk.co.caprica.vlcj.player.embedded.EmbeddedMediaPlayer;
+import uk.co.caprica.vlcj.runtime.RuntimeUtil;
 
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -18,13 +23,16 @@ public class VideoRewardState extends GameStatePanel {
 
 	public VideoRewardState() {
 		super.setupBackground("VIDEO REWARD");
+		
+		addVLCLibrary();
+		
 		mediaPlayerComponent = new EmbeddedMediaPlayerComponent();
 		mediaPlayerComponent.setBounds(200, 250, 800, 400);
 		add(mediaPlayerComponent);
 
 		video = mediaPlayerComponent.getMediaPlayer();
 
-		started =false;
+		started = false;
 
 		btnPausePlay = new JButton();
 		btnPausePlay.setText("Play");
@@ -62,6 +70,9 @@ public class VideoRewardState extends GameStatePanel {
 			}
 		});
 		add(btnExitVideoReward);
+		
+		
+	    
 	}
 
 
@@ -70,6 +81,10 @@ public class VideoRewardState extends GameStatePanel {
 		video.playMedia(filename);
 	}
 
-
+	private static void addVLCLibrary() {
+        NativeLibrary.addSearchPath(RuntimeUtil.getLibVlcLibraryName(), "/usr/bin");
+        //System.setProperty("jna.library.path", "/Applications/VLC.app/Contents/MacOS/lib");
+        Native.loadLibrary("vlc", LibVlc.class);
+    }
 
 }

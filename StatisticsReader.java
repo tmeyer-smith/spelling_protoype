@@ -123,7 +123,7 @@ public class StatisticsReader extends FileUser {
             String line;
             while (br.ready()) {
                 if (!(line=br.readLine()).startsWith("%")) {
-                    String[] split = line.split("\\s+");
+                    String[] split = getLineSplit(line);
                     if ((!split[1].equals("0")) || (!split[2].equals("0"))) {
                         wordsCorrect += 1;
                     }

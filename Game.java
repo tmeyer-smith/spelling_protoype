@@ -16,7 +16,6 @@ public class Game {
         setUpFrame();
         GameStateManager.initializeGSM();
         WordListsManager.initialise();
-        addVLCLibrary();
         _frame.setVisible(true);
     }
 
@@ -25,13 +24,5 @@ public class Game {
     	_frame.repaint();
     	_frame.revalidate();
     }
-
-
-    private static void addVLCLibrary() {
-        NativeLibrary.addSearchPath(RuntimeUtil.getLibVlcLibraryName(), "/usr/bin");
-        //System.setProperty("jna.library.path", "/Applications/VLC.app/Contents/MacOS/lib");
-        Native.loadLibrary("vlc", LibVlc.class);
-    }
-
 
 }
