@@ -46,6 +46,20 @@ public class WordListsManager {
         return getWlm()._wordObject.getTestList(level);
     }
 
+    public static String[] getReviewList(String level) {
+        int levelInt = Integer.parseInt(level);
+        int listSize;
+        if ((listSize = getWlm().failedWords.get(levelInt-1).size()) > 10) {
+            listSize = 10;
+        }
+        String[] list = new String[listSize];
+
+        for (int i=0; i<listSize; i++) {
+            list[i] = getWlm().failedWords.get(levelInt-1).get(i);
+        }
+        return list;
+    }
+
     public static int getNumOfWordsInLevel(int level) {
     	int num = 0;
     	if (level==0) {
@@ -95,6 +109,11 @@ public class WordListsManager {
                 getWlm().failedWords.get(level - 1).add(word);
             }
         }
+    }
+
+    public static boolean failedWordsExist(String level) {
+        int levelInt = Integer.parseInt(level);
+        return !getWlm().failedWords.get(levelInt - 1).isEmpty();
     }
 
 }

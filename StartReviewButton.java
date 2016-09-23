@@ -2,7 +2,7 @@
 public class StartReviewButton extends ChangeStateButton {
 
     public StartReviewButton() {
-        super(GameStateManager.State.play);
+        super(GameStateManager.State.review);
         setup();
     }
 

@@ -12,11 +12,13 @@ public class InGameStorage {
 
     private ArrayList<CorrectWordDisplayLabel> feedbackWordLabels;
     private ArrayList<JLabel> numberLabels;
+    private int testLength;
 
 
     public InGameStorage(String[] wordList) {
 
         _wordList = wordList;
+        testLength = wordList.length;
 
         feedbackWordLabels = new ArrayList<>();
         numberLabels = new ArrayList<>();
@@ -26,7 +28,7 @@ public class InGameStorage {
         int xBound = 71;
         int[] yBounds = {193, 244, 295, 346, 397, 448, 499, 550, 601, 652};
 
-        for (int i=0; i<10; i++) {
+        for (int i=0; i<testLength; i++) {
             CorrectWordDisplayLabel label = new CorrectWordDisplayLabel();
             label.setBounds(xBound, yBounds[i], 190, wordDisplayHeight);
             label.setText(wordList[i]);
@@ -34,7 +36,7 @@ public class InGameStorage {
         }
 
 
-        for (int i=0; i<10; i++) {
+        for (int i=0; i<testLength; i++) {
             JLabel label = new JLabel("("+(i+1)+")");
             label.setForeground(Color.WHITE);
             label.setBackground(Color.BLACK);
@@ -51,15 +53,6 @@ public class InGameStorage {
     public String[] getTestList() {
         return _wordList;
     }
-
-    public void setTestList(String[] list) {
-        _wordList = list;
-    }
-
-    public void setFinalAttempts(String[] list) {
-        _finalAttempts = list;
-    }
-
 
     public void updateFeedbackLabels(int index, String attempt) {
         feedbackWordLabels.get(index).setText(attempt);

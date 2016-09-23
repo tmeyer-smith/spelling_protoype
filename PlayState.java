@@ -12,12 +12,17 @@ import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
 @SuppressWarnings("serial")
+
+
+
 public class PlayState extends GameStatePanel {
 	private JTextField answerBox;
 	private JButton submitButton;
 	private ArrayList<CorrectWordDisplayLabel> feedbackWordLabels;
 	private int count;
 	private String[] wordList;
+	private int testLength;
+
 
 	PlayState(InGameStorage storage) {
 		setBounds(new Rectangle(0, 0, 1200, 800));
@@ -26,6 +31,7 @@ public class PlayState extends GameStatePanel {
 		count = 0;
 
 		wordList = storage.getTestList();
+		testLength = wordList.length;
 
 
 		feedbackWordLabels = storage.getFeedbackWordLabels();
@@ -71,11 +77,11 @@ public class PlayState extends GameStatePanel {
 				}
 				
 				// Read out next word if there is one
-				if(count%2==0 && count <20 ) {
+				if(count%2==0 && count <(testLength*2) ) {
 					Festival.use("Spell the word: " + wordList[count/2]);
 				}
 				
-				if(count>=20){
+				if(count>=(testLength*2)){
 					GameStateManager.goToPostGame(storage);
 
 

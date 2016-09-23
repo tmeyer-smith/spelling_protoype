@@ -7,7 +7,8 @@ public class GameStateManager {
         play,
         pregame,
         postgame,
-        videoReward
+        videoReward,
+        review
     }
 
     private GameStatePanel _currentState;
@@ -58,6 +59,12 @@ public class GameStateManager {
             _storage = new InGameStorage(WordListsManager.getTestList(_level));
         	_currentState = new PlayState(_storage);
         	break;
+
+            case review :
+                _storage = new InGameStorage(WordListsManager.getReviewList(_level));
+                _currentState = new PlayState(_storage);
+                break;
+
 //        case postgame:
 //        	// do not use
 //        	break;

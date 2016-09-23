@@ -45,6 +45,10 @@ public class PreGameState extends GameStatePanel {
 		btnReview.setFont(new Font(_font, Font.BOLD, 40));
 		btnReview.setBounds(425, 500, 350, 100);
 		add(btnReview);
+
+		if (!WordListsManager.failedWordsExist(GameStateManager.getLevel())) {
+			btnReview.setEnabled(false);
+		}
 		
 	}
 
