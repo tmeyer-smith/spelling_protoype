@@ -10,7 +10,7 @@ public class WordList extends FileUser {
     private static int[] _numOfWordsPerLevel;
 
     protected WordList() {
-        BufferedReader br = getBr(_WordList);
+        BufferedReader br = getWordListBr();
         _numOfWordsPerLevel = new int[_numOfLevels];
 
         try {
@@ -32,10 +32,10 @@ public class WordList extends FileUser {
         return _numOfWordsPerLevel;
     }
 
-    protected String[] getTestList(int level) {
+    protected String[] getTestList(String string) {
 
         String[] quizWords = new String[_testSize];
-        ArrayList<String> wordsInLevel = getLevelSubList(level);
+        ArrayList<String> wordsInLevel = getLevelSubList(string);
         int[] indexes = getRandomIndexes(wordsInLevel.size());
 
         for (int i=0; i<quizWords.length; i++) {
@@ -46,14 +46,14 @@ public class WordList extends FileUser {
 
     }
 
-    private ArrayList<String> getLevelSubList (int level) {
+    private ArrayList<String> getLevelSubList (String string) {
         ArrayList<String> wordsInLevel = new ArrayList<>();
-        BufferedReader br = getBr(_WordList);
+        BufferedReader br = getWordListBr();
         String line;
         try {
             do {
                 line = br.readLine();
-            } while (!line.equals("%Level "+level));
+            } while (!line.equals("%Level "+string));
 
             while ((br.ready())&&(!(line=br.readLine()).startsWith("%"))) {
                 wordsInLevel.add(line);
@@ -84,6 +84,22 @@ public class WordList extends FileUser {
             } while (!isUnique);
         }
         return randomNumberArray;
+    }
+
+    public int getLevelOfWord(String word) {
+        int currentLevel=0;
+        String line;
+        try {
+            BufferedReader br = getWordListBr();
+            while ((br.ready())&&(!(line = br.readLine()).equals(word))) {
+                if (line.startsWith("%")) {
+                    currentLevel++;
+                }
+            }
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+        }
+        return currentLevel;
     }
 
 }

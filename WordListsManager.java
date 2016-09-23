@@ -1,4 +1,6 @@
-import java.util.Arrays;
+//import java.util.Arrays;
+
+import java.util.ArrayList;
 
 public class WordListsManager {
 
@@ -9,13 +11,20 @@ public class WordListsManager {
     private StatisticsWriter _statWriterObject;
     private StatisticsReader _statReaderObject;
 
-    private static int[] numWordsPerLevel;
+    private ArrayList<ArrayList<String>> failedWords;
+
+   // private static int[] numWordsPerLevel;
 
     private WordListsManager() {
         _wordObject = new WordList();
         _statWriterObject = new StatisticsWriter();
         _statReaderObject = new StatisticsReader();
-        numWordsPerLevel = _wordObject.getNumOfWordsPerLevel();
+
+        failedWords = new ArrayList<>();
+        for (int i=0; i<11; i++) {
+            failedWords.add(new ArrayList<>());
+        }
+
     }
 
     private static WordListsManager getWlm() {
@@ -37,48 +46,55 @@ public class WordListsManager {
         return getWlm()._wordObject.getTestList(level);
     }
 
-    public static int[] getNumOfWordsPerLevel() {
-        return getWlm()._wordObject.getNumOfWordsPerLevel();
+    public static int getNumOfWordsInLevel(int level) {
+    	int num = 0;
+    	if (level==0) {
+    		for (int i : getWlm()._wordObject.getNumOfWordsPerLevel()) {
+    			num+=i;
+    		}
+    		return num;
+    	}
+        return getWlm()._wordObject.getNumOfWordsPerLevel()[level-1];
     }
 
     public static void addMasteredWordStat(String word) {
+        editFailedWords(word, 0);
         getWlm()._statWriterObject.addToStats(word, StatisticsWriter.Result.mastered);
     }
     public static void addFaultedWordStat(String word) {
+        editFailedWords(word, 0);
         getWlm()._statWriterObject.addToStats(word, StatisticsWriter.Result.faulted);
     }
     public static void addFailedWordStat(String word) {
+        editFailedWords(word, 1);
         getWlm()._statWriterObject.addToStats(word, StatisticsWriter.Result.failed);
     }
     public static void clearStatistics() {
         getWlm()._statWriterObject.resetStatisticFiles();
     }
 
-    public static String[][] getStatsForLevel(String level) {
-        int levelInt = Integer.parseInt(level);
-        return getWlm()._statReaderObject.getStatsForLevel(levelInt);
+    public static String[][] getStatsForLevel(int level) {
+        return getWlm()._statReaderObject.getStatsForLevel(level);
     }
-    public static int getAccuracyForLevel(String level) {
-        int levelInt = Integer.parseInt(level);
-        return getWlm()._statReaderObject.getLevelAccuracy(levelInt);
+    public static int getAccuracyForLevel(int level) {
+        return getWlm()._statReaderObject.getLevelAccuracy(level);
     }
-    public static int getNumWordsCorrectForLevel(String level) {
-        int levelInt = Integer.parseInt(level);
-        return getWlm()._statReaderObject.getWordsCorrectForLevel(levelInt);
+    public static int getNumWordsCorrectForLevel(int level) {
+        return getWlm()._statReaderObject.getWordsCorrectForLevel(level);
+    }
+    protected static int[] getNumOfWordsPerLevel() {
+    	return getWlm()._wordObject.getNumOfWordsPerLevel();
     }
 
-    public static void main(String[] args) {
-
-        WordListsManager.initialise();
-
-        WordListsManager.addFailedWordStat("we");
-        WordListsManager.addFailedWordStat("a");
-        WordListsManager.addMasteredWordStat("to");
-        WordListsManager.addFaultedWordStat("went");
-
-        System.out.println(WordListsManager.getAccuracyForLevel("0"));
-        System.out.println(WordListsManager.getNumWordsCorrectForLevel("1"));
-
+    private static void editFailedWords(String word, int result) {
+        int level = getWlm()._wordObject.getLevelOfWord(word);
+        if (result==0) {
+            getWlm().failedWords.get(level-1).remove(word);
+        } else {
+            if (!getWlm().failedWords.get(level-1).contains(word)) {
+                getWlm().failedWords.get(level - 1).add(word);
+            }
+        }
     }
 
 }
