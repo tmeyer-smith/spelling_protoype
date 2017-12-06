@@ -14,6 +14,7 @@ public class FestivalWorker extends SwingWorker<Void, Void> {
     }
 
     private void sayMessage() {
+		// Makes a system call to the unix shell to use the program Festival to read out the message
         ProcessBuilder pb = new ProcessBuilder("festival","(voice_" + GameStateManager.getGSM().getVoice() + ")",
         		                               "(SayText \"" + _message + "\")" + "(quit)");
         try {
